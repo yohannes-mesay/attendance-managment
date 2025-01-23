@@ -22,7 +22,7 @@ const index = () => {
             <Text style={{ fontSize: 16, fontWeight: "600" }}>
               Attendance Managament System
             </Text>
-            <Entypo name="lock" size={24} color="black" />
+            <Entypo name="login" size={24} color="black" />
           </View>
 
           <View
@@ -304,7 +304,7 @@ const index = () => {
             >
               <View
                 style={{
-                  width: 35,
+                  width: 40,
                   height: 35,
                   borderRadius: 7,
                   backgroundColor: "white",
@@ -345,7 +345,7 @@ const index = () => {
               <Text style={{ marginTop: 7 }}>Increased Workflow</Text>
             </View>
           </View>
-          <View
+          {/* <View
             style={{
               marginTop: 20,
               flexDirection: "row",
@@ -406,7 +406,7 @@ const index = () => {
               </View>
               <Text style={{ marginTop: 7 }}>Employee Performance</Text>
             </View>
-          </View>
+          </View> */}
         </View>
       </LinearGradient>
     </ScrollView>

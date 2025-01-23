@@ -23,7 +23,7 @@ const employees = () => {
     };
     fetchEmployeeData();
     setIsloading(false);
-  }, []);
+  });
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -41,7 +41,7 @@ const employees = () => {
         }}
       >
         <Ionicons
-          onPress={() => router.push("/")}
+          onPress={() => router.push("/(home)")}
           style={{ marginLeft: 10 }}
           name="arrow-back"
           size={24}

@@ -13,6 +13,7 @@ const summary = () => {
     const nextMonth = moment(currentDate).add(1, "months");
     setCurrentDate(nextMonth);
   };
+  console.log("current date", currentDate);
 
   const goToPrevMonth = () => {
     const prevMonth = moment(currentDate).subtract(1, "months");

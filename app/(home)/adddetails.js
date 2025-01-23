@@ -14,9 +14,7 @@ import { useRouter } from "expo-router";
 const adddetails = () => {
   const [name, setName] = useState("");
   const [employeeId, setEmployeeId] = useState("");
-  const [dob, setDob] = useState("");
   const [mobileNo, setMobileNo] = useState("");
-  const [joiningDate, setJoiningDate] = useState("");
   const [salary, setSalary] = useState("");
   const [address, setAddress] = useState("");
   const router = useRouter();
@@ -28,8 +26,6 @@ const adddetails = () => {
       employeeId: employeeId,
       // // designation: designation,
       phoneNumber: mobileNo,
-      dateOfBirth: dob,
-      joiningDate: joiningDate,
       activeEmployee: true,
       salary: salary,
       address: address,
@@ -44,11 +40,9 @@ const adddetails = () => {
         );
         setName("");
         setEmployeeId("");
-        setDob("");
         setMobileNo("");
         setSalary("");
         setAddress("");
-        setJoiningDate("");
         // setDesignation("");
       })
       .catch((error) => {
@@ -70,7 +64,7 @@ const adddetails = () => {
           }}
         >
           <Ionicons
-            onPress={() => router.push("/")}
+            onPress={() => router.push("/employees")}
             style={{ marginLeft: 10 }}
             name="arrow-back"
             size={24}
@@ -171,13 +165,11 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-        <View style={{ marginVertical: 10 }}>
+        {/* <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
             Date of Birth
           </Text>
           <TextInput
-            value={dob}
-            onChangeText={(text) => setDob(text)}
             style={{
               padding: 10,
               borderColor: "#D0D0D0",
@@ -192,8 +184,6 @@ const adddetails = () => {
         <View>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>Joining Date</Text>
           <TextInput
-            value={joiningDate}
-            onChangeText={(text) => setJoiningDate(text)}
             style={{
               padding: 10,
               borderColor: "#D0D0D0",
@@ -204,7 +194,7 @@ const adddetails = () => {
             placeholder="Joining Date"
             placeholderTextColor={"black"}
           />
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: "row",

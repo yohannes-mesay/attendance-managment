@@ -34,7 +34,7 @@ const markattendance = () => {
       }
     };
     fetchEmployeeData();
-  }, []);
+  });
   const [attendance, setAttendance] = useState([]);
   const fetchAttendanceData = async () => {
     try {
@@ -75,6 +75,12 @@ const markattendance = () => {
             marginVertical: 20,
           }}
         >
+          <AntDesign
+            onPress={() => router.push("/(home)")}
+            name="home"
+            size={24}
+            color="black"
+          />
           <AntDesign
             onPress={goToPrevDay}
             name="left"
@@ -150,7 +156,8 @@ const markattendance = () => {
                   <Text
                     style={{ fontSize: 16, color: "white", fontWeight: "bold" }}
                   >
-                    {item.status.charAt(0)}{item.status.charAt(1)}
+                    {item.status.charAt(0)}
+                    {item.status.charAt(1)}
                   </Text>
                 </View>
               )}
