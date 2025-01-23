@@ -27,7 +27,7 @@ const markattendance = () => {
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get("http://192.168.64.1:8000/employees");
+        const response = await axios.get("http://192.168.8.150:8000/employees");
         setEmployees(response.data);
       } catch (error) {
         console.log("error fetching employee data", error);
@@ -38,7 +38,7 @@ const markattendance = () => {
   const [attendance, setAttendance] = useState([]);
   const fetchAttendanceData = async () => {
     try {
-      const response = await axios.get(`http://192.168.64.1:8000/attendance`, {
+      const response = await axios.get(`http://192.168.8.150:8000/attendance`, {
         params: {
           date: currentDate.format("MMMM D, YYYY"),
         },
@@ -150,7 +150,7 @@ const markattendance = () => {
                   <Text
                     style={{ fontSize: 16, color: "white", fontWeight: "bold" }}
                   >
-                    {item.status.charAt(0)}
+                    {item.status.charAt(0)}{item.status.charAt(1)}
                   </Text>
                 </View>
               )}

@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
-
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 const adddetails = () => {
   const [name, setName] = useState("");
   const [employeeId, setEmployeeId] = useState("");
@@ -18,71 +19,76 @@ const adddetails = () => {
   const [joiningDate, setJoiningDate] = useState("");
   const [salary, setSalary] = useState("");
   const [address, setAddress] = useState("");
+  const router = useRouter();
 
+  // const [designation, setDesignation] = useState("");
   const handleRegister = () => {
-    if (
-      !name.trim() ||
-      !employeeId.trim() ||
-      !dob ||
-      !mobileNo.trim() ||
-      !joiningDate ||
-      !salary.trim() ||
-      !address.trim()
-    ) {
-      Alert.alert("Validation Error", "Please fill out all fields.");
-      return;
-    }
-
-    // Validate phone number (example: must be 10 digits)
-    if (!/^\d{10}$/.test(mobileNo)) {
-      Alert.alert("Validation Error", "Invalid phone number format.");
-      return;
-    }
-
-    // Validate salary (must be a positive number)
-    if (isNaN(salary) || Number(salary) <= 0) {
-      Alert.alert("Validation Error", "Salary must be a positive number.");
-      return;
-    }
-
     const employeeData = {
       employeeName: name,
       employeeId: employeeId,
+      // // designation: designation,
       phoneNumber: mobileNo,
-      dateOfBirth: dob.toISOString(),
-      joiningDate: joiningDate.toISOString(),
+      dateOfBirth: dob,
+      joiningDate: joiningDate,
       activeEmployee: true,
-      salary: parseFloat(salary),
+      salary: salary,
       address: address,
     };
 
     axios
-      .post("http://192.168.64.1:8000/addEmployee", employeeData)
-      .then(() => {
-        Alert.alert("Registration Successful", "Employee has been added.");
+      .post("http://192.168.8.150:8000/addEmployee", employeeData)
+      .then((response) => {
+        Alert.alert(
+          "Registration Successful",
+          "You have successfully registered new Employee"
+        );
         setName("");
         setEmployeeId("");
-        setDob(new Date());
+        setDob("");
         setMobileNo("");
-        setJoiningDate(new Date());
         setSalary("");
         setAddress("");
+        setJoiningDate("");
+        // setDesignation("");
       })
       .catch((error) => {
         Alert.alert(
-          "Registration Failed",
-          "An error occurred during registration."
+          "Registration Fail",
+          "An error occurred during registration"
         );
-        console.error("Registration failed:", error);
+        console.log("register failed", error);
       });
   };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ padding: 10 }}>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-          Add a New Employee
-        </Text>
-        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "white",
+          }}
+        >
+          <Ionicons
+            onPress={() => router.push("/")}
+            style={{ marginLeft: 10 }}
+            name="arrow-back"
+            size={24}
+            color="black"
+          />
+          <Text
+            style={{
+              fontSize: 20,
+              width: "90%",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            Add a New Employee
+          </Text>
+        </View>
+
+        <Text style={{ fontSize: 16.5, fontWeight: "bold" }}>
           Nationality(default: Ethiopia)
         </Text>
         <TextInput
@@ -97,10 +103,9 @@ const adddetails = () => {
           defaultValue="Ethiopia"
           placeholderTextColor={"black"}
         />
-
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            Full Name (First and Last Name)
+            Full Name (First and last Name)
           </Text>
           <TextInput
             value={name}
@@ -116,7 +121,6 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
         <View>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>Employee Id</Text>
           <TextInput
@@ -133,7 +137,22 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
+        {/* <View style={{ marginVertical: 10 }}>
+          // <Text style={{ fontSize: 17, fontWeight: "bold" }}>Designation</Text>
+          <TextInput
+            // value={designation}
+            // onChangeText={(text) => setDesignation(text)}
+            style={{
+              padding: 10,
+              borderColor: "#D0D0D0",
+              borderWidth: 1,
+              marginTop: 10,
+              borderRadius: 5,
+            }}
+            // placeholder="Designation"
+            placeholderTextColor={"black"}
+          />
+        </View> */}
         <View>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
             Mobile Number
@@ -152,7 +171,6 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
             Date of Birth
@@ -171,7 +189,6 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
         <View>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>Joining Date</Text>
           <TextInput
@@ -215,7 +232,6 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
         <View>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>Address</Text>
           <TextInput
@@ -232,7 +248,6 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
         <Pressable
           onPress={handleRegister}
           style={{

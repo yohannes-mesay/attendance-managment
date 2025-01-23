@@ -9,19 +9,28 @@ import SearchResults from "../../components/SearchResults";
 const employees = () => {
   const [employees, setEmployees] = useState([]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsloading] = useState(false);
   const router = useRouter();
   useEffect(() => {
+    setIsloading(true);
     const fetchEmployeeData = async () => {
       try {
-        const response = await axios.get("http://192.168.64.1:8000/employees");
+        const response = await axios.get("http://192.168.8.150:8000/employees");
         setEmployees(response.data);
       } catch (error) {
         console.log("error fetching employee data", error);
       }
     };
     fetchEmployeeData();
+    setIsloading(false);
   }, []);
-  console.log(employees);
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        Loading....{" "}
+      </View>
+    );
+  }
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View
@@ -32,7 +41,7 @@ const employees = () => {
         }}
       >
         <Ionicons
-          onPress={() => router.back()}
+          onPress={() => router.push("/")}
           style={{ marginLeft: 10 }}
           name="arrow-back"
           size={24}
@@ -96,5 +105,3 @@ const employees = () => {
 };
 
 export default employees;
-
-const styles = StyleSheet.create({});

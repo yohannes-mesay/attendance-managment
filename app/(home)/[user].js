@@ -7,7 +7,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import moment from "moment";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -41,11 +41,12 @@ const user = () => {
         status: attendanceStatus,
       };
       const response = await axios.post(
-        "http://192.168.64.1:8000/attendance",
+        "http://192.168.8.150:8000/attendance",
         attendanceData
       );
       if (response.status === 200) {
         Alert.alert(`Attendance submitted successfully for ${params?.name}`);
+        router.push("/markattendance");
       }
     } catch (error) {
       console.log("error submitting attendance", error);
