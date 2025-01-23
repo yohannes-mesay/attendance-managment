@@ -16,11 +16,11 @@ const employeeSchema = new mongoose.Schema({
     },
     joiningDate:{
         type:String,
-        required:true
+        required:false
     },
     dateOfBirth:{
         type:String,
-        required:true
+        required:false
     },
     salary:{
         type:Number,

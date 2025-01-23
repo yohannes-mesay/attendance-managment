@@ -132,7 +132,6 @@ app.get("/attendance-report-all-employees", async (req, res) => {
       .toDate();
     const endDate = moment(startDate).endOf("month").toDate();
 
-    // Aggregate attendance data for all employees and date range
     const report = await Attendance.aggregate([
       {
         $match: {
