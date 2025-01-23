@@ -18,42 +18,62 @@ const adddetails = () => {
   const [joiningDate, setJoiningDate] = useState("");
   const [salary, setSalary] = useState("");
   const [address, setAddress] = useState("");
-  // const [designation, setDesignation] = useState("");
+
   const handleRegister = () => {
+    if (
+      !name.trim() ||
+      !employeeId.trim() ||
+      !dob ||
+      !mobileNo.trim() ||
+      !joiningDate ||
+      !salary.trim() ||
+      !address.trim()
+    ) {
+      Alert.alert("Validation Error", "Please fill out all fields.");
+      return;
+    }
+
+    // Validate phone number (example: must be 10 digits)
+    if (!/^\d{10}$/.test(mobileNo)) {
+      Alert.alert("Validation Error", "Invalid phone number format.");
+      return;
+    }
+
+    // Validate salary (must be a positive number)
+    if (isNaN(salary) || Number(salary) <= 0) {
+      Alert.alert("Validation Error", "Salary must be a positive number.");
+      return;
+    }
+
     const employeeData = {
       employeeName: name,
       employeeId: employeeId,
-      // // designation: designation,
       phoneNumber: mobileNo,
-      dateOfBirth: dob,
-      joiningDate: joiningDate,
+      dateOfBirth: dob.toISOString(),
+      joiningDate: joiningDate.toISOString(),
       activeEmployee: true,
-      salary: salary,
+      salary: parseFloat(salary),
       address: address,
     };
 
     axios
       .post("http://192.168.64.1:8000/addEmployee", employeeData)
-      .then((response) => {
-        Alert.alert(
-          "Registration Successful",
-          "You have been registered successfully"
-        );
+      .then(() => {
+        Alert.alert("Registration Successful", "Employee has been added.");
         setName("");
         setEmployeeId("");
-        setDob("");
+        setDob(new Date());
         setMobileNo("");
+        setJoiningDate(new Date());
         setSalary("");
         setAddress("");
-        setJoiningDate("");
-        // setDesignation("");
       })
       .catch((error) => {
         Alert.alert(
-          "Registration Fail",
-          "An error occurred during registration"
+          "Registration Failed",
+          "An error occurred during registration."
         );
-        console.log("register failed", error);
+        console.error("Registration failed:", error);
       });
   };
   return (
@@ -62,7 +82,9 @@ const adddetails = () => {
         <Text style={{ fontSize: 17, fontWeight: "bold" }}>
           Add a New Employee
         </Text>
-
+        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+          Nationality(default: Ethiopia)
+        </Text>
         <TextInput
           style={{
             padding: 10,
@@ -72,12 +94,13 @@ const adddetails = () => {
             borderRadius: 5,
           }}
           placeholder="Ethiopia"
+          defaultValue="Ethiopia"
           placeholderTextColor={"black"}
         />
 
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            Full Name (First and last Name)
+            Full Name (First and Last Name)
           </Text>
           <TextInput
             value={name}
@@ -110,23 +133,6 @@ const adddetails = () => {
             placeholderTextColor={"black"}
           />
         </View>
-
-        {/* <View style={{ marginVertical: 10 }}>
-          // <Text style={{ fontSize: 17, fontWeight: "bold" }}>Designation</Text>
-          <TextInput
-            // value={designation}
-            // onChangeText={(text) => setDesignation(text)}
-            style={{
-              padding: 10,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-              borderRadius: 5,
-            }}
-            // placeholder="Designation"
-            placeholderTextColor={"black"}
-          />
-        </View> */}
 
         <View>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
